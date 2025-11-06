@@ -1,0 +1,3235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebCreator Pro - Build & Deploy Websites Instantly</title>
+    <meta name="description" content="Professional web app creator with drag-and-drop upload, live preview, and instant subdomain deployment">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#6366f1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="WebCreator Pro">
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiV2ViQ3JlYXRvciBQcm8iLCJzaG9ydF9uYW1lIjoiV2ViQ3JlYXRvciIsInN0YXJ0X3VybCI6Ii8iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjNjM2NmYxIiwidGhlbWVfY29sb3IiOiIjNjM2NmYxIn0=">
+    
+    <style>
+        /* Enhanced CSS Custom Properties - Advanced Design System */
+        :root {
+            --primary-50: #eef2ff;
+            --primary-100: #e0e7ff;
+            --primary-200: #c7d2fe;
+            --primary-300: #a5b4fc;
+            --primary-400: #818cf8;
+            --primary-500: #6366f1;
+            --primary-600: #4f46e5;
+            --primary-700: #4338ca;
+            --primary-800: #3730a3;
+            --primary-900: #312e81;
+            
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            
+            --success-50: #f0fdf4;
+            --success-500: #10b981;
+            --warning-50: #fffbeb;
+            --warning-500: #f59e0b;
+            --error-50: #fef2f2;
+            --error-500: #ef4444;
+            
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+            
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --border: 1px solid var(--gray-200);
+        }
+
+        /* Dark Mode Variables */
+        [data-theme="dark"] {
+            --primary-50: #1e293b;
+            --primary-100: #334155;
+            --primary-200: #475569;
+            --primary-300: #64748b;
+            --primary-400: #94a3b8;
+            --primary-500: #e2e8f0;
+            --primary-600: #f1f5f9;
+            --primary-700: #f8fafc;
+            --primary-800: #ffffff;
+            --primary-900: #ffffff;
+            
+            --gray-50: #0f172a;
+            --gray-100: #1e293b;
+            --gray-200: #334155;
+            --gray-300: #475569;
+            --gray-400: #64748b;
+            --gray-500: #94a3b8;
+            --gray-600: #cbd5e1;
+            --gray-700: #e2e8f0;
+            --gray-800: #f1f5f9;
+            --gray-900: #f8fafc;
+        }
+
+        /* Reset and Base Styles - Enhanced Typography */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, var(--primary-50) 0%, var(--gray-50) 100%);
+            color: var(--gray-900);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: var(--transition);
+        }
+
+        [data-theme="dark"] body {
+            background: linear-gradient(135deg, var(--primary-900) 0%, var(--gray-900) 100%);
+            color: var(--gray-100);
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+        h2 { font-size: clamp(1.5rem, 4vw, 2.25rem); }
+        h3 { font-size: 1.25rem; }
+        h4 { font-size: 1rem; }
+
+        /* Layout Components - Enhanced Grid/Flex */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        [data-theme="dark"] .header {
+            background: rgba(17, 24, 39, 0.95);
+            border-bottom-color: var(--gray-700);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-600);
+            transition: var(--transition);
+        }
+
+        [data-theme="dark"] .logo {
+            color: var(--primary-400);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo svg {
+            width: 32px;
+            height: 32px;
+            transition: var(--transition);
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--gray-600);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        [data-theme="dark"] .nav-link {
+            color: var(--gray-400);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-600);
+            background: var(--primary-50);
+        }
+
+        [data-theme="dark"] .nav-link:hover, [data-theme="dark"] .nav-link.active {
+            background: var(--primary-900);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--primary-600);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .main-content {
+            padding: 2rem 0;
+        }
+
+        /* Hero Section - Enhanced Animations */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-500), transparent);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        [data-theme="dark"] .hero h1 {
+            background: linear-gradient(135deg, var(--primary-400), var(--primary-300));
+        }
+
+        .hero h1::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4rem;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-500), var(--primary-600));
+            border-radius: 2px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--gray-600);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        [data-theme="dark"] .hero p {
+            color: var(--gray-400);
+        }
+
+        /* Card Components - Enhanced Shadows & Borders */
+        .card {
+            background: white;
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-lg);
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            transition: var(--transition);
+            border: var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        [data-theme="dark"] .card {
+            background: var(--gray-800);
+            border-color: var(--gray-700);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-500), var(--primary-600));
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-2xl);
+        }
+
+        /* Upload Zone - Enhanced Interactions */
+        .upload-zone {
+            border: 3px dashed var(--gray-300);
+            border-radius: var(--radius-xl);
+            padding: 4rem 2rem;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            background: var(--gray-50);
+        }
+
+        [data-theme="dark"] .upload-zone {
+            border-color: var(--gray-600);
+            background: var(--gray-800);
+        }
+
+        .upload-zone::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(99, 102, 241, 0.02) 100%);
+        }
+
+        .upload-zone.drag-over {
+            border-color: var(--primary-500);
+            background: var(--primary-50);
+            transform: scale(1.02);
+            box-shadow: 0 0 0 0.5rem rgba(99, 102, 241, 0.1);
+        }
+
+        [data-theme="dark"] .upload-zone.drag-over {
+            background: var(--primary-900);
+            box-shadow: 0 0 0 0.5rem rgba(99, 102, 241, 0.2);
+        }
+
+        .upload-zone.drag-invalid {
+            border-color: var(--error-500);
+            background: var(--error-50);
+            box-shadow: 0 0 0 0.5rem rgba(239, 68, 68, 0.1);
+        }
+
+        .upload-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            opacity: 0.6;
+            transition: var(--transition);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .upload-zone:hover .upload-icon,
+        .upload-zone.drag-over .upload-icon {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .upload-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 0.5rem;
+        }
+
+        [data-theme="dark"] .upload-text {
+            color: var(--gray-300);
+        }
+
+        .upload-subtext {
+            color: var(--gray-500);
+            font-size: 0.875rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        /* Form Components - Enhanced Focus States */
+        .form-group {
+            margin-bottom: 1.75rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 0.75rem;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        [data-theme="dark"] .form-label {
+            color: var(--gray-300);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: white;
+            color: var(--gray-900);
+        }
+
+        [data-theme="dark"] .form-input {
+            background: var(--gray-700);
+            border-color: var(--gray-600);
+            color: var(--gray-100);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.1);
+            transform: translateY(-1px);
+        }
+
+        [data-theme="dark"] .form-input:focus {
+            box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.2);
+        }
+
+        .form-input.error {
+            border-color: var(--error-500);
+            box-shadow: 0 0 0 0.25rem rgba(239, 68, 68, 0.1);
+        }
+
+        small {
+            display: block;
+            margin-top: 0.25rem;
+            color: var(--gray-500);
+            font-size: 0.75rem;
+        }
+
+        [data-theme="dark"] small {
+            color: var(--gray-500);
+        }
+
+        /* Buttons - Enhanced Variants & States */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.875rem;
+            position: relative;
+            overflow: hidden;
+            min-height: 44px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: var(--transition);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--gray-100);
+            color: var(--gray-700);
+            border: var(--border);
+        }
+
+        [data-theme="dark"] .btn-secondary {
+            background: var(--gray-700);
+            color: var(--gray-300);
+            border-color: var(--gray-600);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: var(--gray-200);
+            transform: translateY(-1px);
+        }
+
+        [data-theme="dark"] .btn-secondary:hover:not(:disabled) {
+            background: var(--gray-600);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success-500), #059669);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-success:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+            min-height: auto;
+        }
+
+        .btn-icon {
+            padding: 0.5rem;
+            border-radius: var(--radius-md);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: var(--gray-400);
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        [data-theme="dark"] .btn-icon {
+            color: var(--gray-500);
+        }
+
+        .btn-icon:hover {
+            background: var(--gray-100);
+            color: var(--gray-600);
+            transform: scale(1.1);
+        }
+
+        [data-theme="dark"] .btn-icon:hover {
+            background: var(--gray-700);
+            color: var(--gray-400);
+        }
+
+        /* File List - Enhanced Grid Layout */
+        .file-list {
+            margin-top: 2.5rem;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            margin-bottom: 0.75rem;
+            transition: var(--transition);
+            border: var(--border);
+        }
+
+        [data-theme="dark"] .file-item {
+            background: var(--gray-700);
+            border-color: var(--gray-600);
+        }
+
+        .file-item:hover {
+            background: var(--gray-100);
+            transform: translateX(4px);
+        }
+
+        [data-theme="dark"] .file-item:hover {
+            background: var(--gray-600);
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .file-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: var(--radius-md);
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-sm);
+            flex-shrink: 0;
+        }
+
+        [data-theme="dark"] .file-icon {
+            background: var(--gray-600);
+        }
+
+        .file-details h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 0.25rem;
+            word-break: break-all;
+        }
+
+        [data-theme="dark"] .file-details h4 {
+            color: var(--gray-200);
+        }
+
+        .file-details p {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        /* Progress Bar - Enhanced Animation */
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: var(--gray-200);
+            border-radius: 9999px;
+            overflow: hidden;
+            margin-top: 1.5rem;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        [data-theme="dark"] .progress-bar {
+            background: var(--gray-600);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-500), var(--primary-600));
+            transition: width 0.4s ease;
+            position: relative;
+            border-radius: 9999px;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Modal - Enhanced Backdrop & Animations */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        [data-theme="dark"] .modal {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius-2xl);
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-2xl);
+            position: relative;
+        }
+
+        [data-theme="dark"] .modal-content {
+            background: var(--gray-800);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: var(--gray-100);
+            border-radius: 3px;
+        }
+
+        [data-theme="dark"] .modal-content::-webkit-scrollbar-track {
+            background: var(--gray-700);
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: var(--gray-300);
+            border-radius: 3px;
+        }
+
+        [data-theme="dark"] .modal-content::-webkit-scrollbar-thumb {
+            background: var(--gray-500);
+        }
+
+        /* Code Editor - Enhanced Syntax Highlighting Placeholder */
+        .code-editor {
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            background: var(--gray-900);
+        }
+
+        [data-theme="dark"] .code-editor {
+            border-color: var(--gray-700);
+        }
+
+        .code-editor-header {
+            background: var(--gray-800);
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--gray-700);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--gray-200);
+        }
+
+        [data-theme="dark"] .code-editor-header {
+            background: var(--gray-700);
+            border-bottom-color: var(--gray-600);
+            color: var(--gray-300);
+        }
+
+        .code-editor-content {
+            padding: 1.5rem;
+            font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            min-height: 400px;
+            resize: vertical;
+            border: none;
+            outline: none;
+            width: 100%;
+            color: var(--gray-100);
+            background: transparent;
+            tab-size: 2;
+            -webkit-appearance: none;
+        }
+
+        .code-editor-content::placeholder {
+            color: var(--gray-500);
+            font-style: italic;
+        }
+
+        /* Live Preview - Enhanced Responsive Frame */
+        .preview-container {
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            background: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        [data-theme="dark"] .preview-container {
+            border-color: var(--gray-700);
+            background: var(--gray-900);
+        }
+
+        .preview-header {
+            background: var(--gray-100);
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        [data-theme="dark"] .preview-header {
+            background: var(--gray-700);
+            border-bottom-color: var(--gray-600);
+        }
+
+        .preview-header input {
+            flex: 1;
+            margin-right: 1rem;
+            background: white;
+            border: var(--border);
+        }
+
+        [data-theme="dark"] .preview-header input {
+            background: var(--gray-600);
+            border-color: var(--gray-500);
+            color: var(--gray-100);
+        }
+
+        .preview-frame {
+            width: 100%;
+            height: 600px;
+            border: none;
+            background: white;
+            transition: var(--transition);
+        }
+
+        [data-theme="dark"] .preview-frame {
+            background: var(--gray-900);
+        }
+
+        @media (max-width: 768px) {
+            .preview-frame {
+                height: 400px;
+            }
+        }
+
+        /* Dashboard - Enhanced Sidebar & Content */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2.5rem;
+            min-height: 700px;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        [data-theme="dark"] .sidebar {
+            background: var(--gray-800);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .sidebar h3 {
+            margin-bottom: 1.5rem;
+            color: var(--gray-900);
+            font-size: 1.125rem;
+        }
+
+        [data-theme="dark"] .sidebar h3 {
+            color: var(--gray-100);
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 0.25rem;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.25rem;
+            color: var(--gray-600);
+            text-decoration: none;
+            border-radius: var(--radius-lg);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        [data-theme="dark"] .sidebar-nav a {
+            color: var(--gray-400);
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: var(--primary-50);
+            color: var(--primary-600);
+            transform: translateX(4px);
+        }
+
+        [data-theme="dark"] .sidebar-nav a:hover,
+        [data-theme="dark"] .sidebar-nav a.active {
+            background: var(--primary-900);
+            color: var(--primary-400);
+        }
+
+        .sidebar-nav a svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.6;
+        }
+
+        .sidebar-nav a:hover svg,
+        .sidebar-nav a.active svg {
+            opacity: 1;
+        }
+
+        .content-area {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+        }
+
+        [data-theme="dark"] .content-area {
+            background: var(--gray-800);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .content-area h2 {
+            margin-bottom: 2rem;
+            color: var(--gray-900);
+        }
+
+        [data-theme="dark"] .content-area h2 {
+            color: var(--gray-100);
+        }
+
+        /* Tab Panels */
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* Files Tab */
+        .files-tab {
+            display: grid;
+            gap: 1rem;
+        }
+
+        /* Analytics Tab - Enhanced Charts */
+        .analytics-chart {
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-500);
+            border: var(--border);
+        }
+
+        [data-theme="dark"] .analytics-chart {
+            background: var(--gray-700);
+            border-color: var(--gray-600);
+            color: var(--gray-400);
+        }
+
+        /* Settings Tab */
+        .settings-group {
+            margin-bottom: 2rem;
+        }
+
+        .settings-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        /* Deployments Tab */
+        .deployment-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-md);
+            margin-bottom: 0.5rem;
+        }
+
+        [data-theme="dark"] .deployment-item {
+            background: var(--gray-700);
+        }
+
+        /* Templates Section - Enhanced Grid */
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .template-card {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            cursor: pointer;
+            border: var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        [data-theme="dark"] .template-card {
+            background: var(--gray-800);
+            border-color: var(--gray-700);
+        }
+
+        .template-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-500), var(--primary-600));
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .template-card:hover::before {
+            opacity: 1;
+        }
+
+        .template-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .template-card h4 {
+            margin-bottom: 1rem;
+            color: var(--primary-600);
+        }
+
+        [data-theme="dark"] .template-card h4 {
+            color: var(--primary-400);
+        }
+
+        .template-card p {
+            color: var(--gray-600);
+            margin-bottom: 1.5rem;
+        }
+
+        [data-theme="dark"] .template-card p {
+            color: var(--gray-400);
+        }
+
+        /* Status Indicators - Enhanced Pills */
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-online {
+            background: var(--success-50);
+            color: var(--success-500);
+        }
+
+        [data-theme="dark"] .status-online {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success-500);
+        }
+
+        .status-offline {
+            background: var(--error-50);
+            color: var(--error-500);
+        }
+
+        [data-theme="dark"] .status-offline {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error-500);
+        }
+
+        .status-building {
+            background: var(--warning-50);
+            color: var(--warning-500);
+        }
+
+        [data-theme="dark"] .status-building {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning-500);
+        }
+
+        .status .icon {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .status-online .icon { background: var(--success-500); }
+        .status-offline .icon { background: var(--error-500); }
+        .status-building .icon { 
+            background: var(--warning-500);
+            animation: pulse 2s infinite;
+        }
+
+        /* Grid Cards in Dashboard */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            border: var(--border);
+            transition: var(--transition);
+        }
+
+        [data-theme="dark"] .stat-card {
+            background: var(--gray-700);
+            border-color: var(--gray-600);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-card h4 {
+            color: var(--gray-500);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        [data-theme="dark"] .stat-card h4 {
+            color: var(--gray-400);
+        }
+
+        .stat-card p {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-600);
+        }
+
+        [data-theme="dark"] .stat-card p {
+            color: var(--primary-400);
+        }
+
+        .stat-card small {
+            color: var(--gray-500);
+            font-size: 0.75rem;
+        }
+
+        [data-theme="dark"] .stat-card small {
+            color: var(--gray-500);
+        }
+
+        /* Projects List */
+        .projects-list {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .project-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            transition: var(--transition);
+        }
+
+        [data-theme="dark"] .project-item {
+            background: var(--gray-700);
+        }
+
+        .project-item:hover {
+            background: var(--gray-100);
+        }
+
+        [data-theme="dark"] .project-item:hover {
+            background: var(--gray-600);
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* Responsive Design - Enhanced Breakpoints */
+        @media (max-width: 1024px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .sidebar {
+                order: 2;
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.25rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                justify-content: center;
+            }
+
+            .file-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .file-actions {
+                align-self: flex-end;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 0.5rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .upload-zone {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Animations - Enhanced Keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Loading States - Enhanced Spinner */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Toast Notifications - Enhanced Positioning */
+        .toast {
+            position: fixed;
+            bottom: 2.5rem;
+            right: 2.5rem;
+            background: white;
+            padding: 1.25rem 1.5rem;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-2xl);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transform: translateX(400px);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2000;
+            max-width: 400px;
+            border-left: 4px solid;
+        }
+
+        [data-theme="dark"] .toast {
+            background: var(--gray-800);
+            box-shadow: var(--shadow-2xl);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .toast-success {
+            border-left-color: var(--success-500);
+        }
+
+        .toast-success .toast-icon {
+            background: var(--success-500);
+            color: white;
+        }
+
+        .toast-error {
+            border-left-color: var(--error-500);
+        }
+
+        .toast-error .toast-icon {
+            background: var(--error-500);
+            color: white;
+        }
+
+        .toast-info {
+            border-left-color: var(--primary-500);
+        }
+
+        .toast-info .toast-icon {
+            background: var(--primary-500);
+            color: white;
+        }
+
+        /* Offline Mode Styles */
+        .offline-mode {
+            filter: grayscale(0.2) brightness(0.95);
+        }
+
+        .offline-mode .upload-zone {
+            border-color: var(--gray-400) !important;
+            background: var(--gray-100) !important;
+            cursor: not-allowed;
+        }
+
+        .offline-mode .btn-primary {
+            background: var(--gray-500) !important;
+            cursor: not-allowed;
+        }
+
+        .offline-indicator {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: var(--error-500);
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            font-weight: 600;
+            z-index: 1000;
+            display: none;
+            box-shadow: var(--shadow-lg);
+            animation: pulse 2s infinite;
+        }
+
+        .offline-mode .offline-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: var(--gray-100);
+        }
+
+        [data-theme="dark"] .theme-toggle:hover {
+            background: var(--gray-700);
+        }
+
+        /* High Contrast & Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        @media (prefers-contrast: high) {
+            .high-contrast-mode {
+                border: 2px solid black;
+                filter: contrast(1.5);
+            }
+        }
+
+        /* Focus Visible - Enhanced Accessibility */
+        .focus-visible {
+            outline: 3px solid var(--primary-500);
+            outline-offset: 2px;
+        }
+
+        /* Keyboard Navigation */
+        .keyboard-navigation *:focus-visible {
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3) !important;
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <!-- Offline Indicator -->
+    <div class="offline-indicator" id="offline-indicator">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M1.5 1.5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h18a3 3 0 0 0 3-3V4.5a3 3 0 0 0-3-3zM21 9v10.5a1.5 1.5 0 0 1-1.5 1.5H4.5A1.5 1.5 0 0 1 3 19.5V9m18 0h-3m-6 0H9m3 0v3m-3 0h3m6 0v-3m0 3H15"/>
+        </svg>
+        Offline Mode
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                        <path fill="white" d="M12 5.5L4.5 9.5v7.5c0 4.14 2.87 7.99 6.5 8.95 3.63-.96 6.5-4.81 6.5-8.95V9.5L12 5.5z"/>
+                        <circle fill="currentColor" cx="12" cy="12" r="3"/>
+                    </svg>
+                    WebCreator Pro
+                </div>
+                <nav class="nav" role="navigation" aria-label="Main navigation">
+                    <a href="#dashboard" class="nav-link">Dashboard</a>
+                    <a href="#projects" class="nav-link">Projects</a>
+                    <a href="#templates" class="nav-link">Templates</a>
+                    <a href="#settings" class="nav-link">Settings</a>
+                </nav>
+                <button class="theme-toggle btn-icon" id="theme-toggle" aria-label="Toggle theme">
+                    <svg id="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content" role="main">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero fade-in" aria-labelledby="hero-title">
+                <h1 id="hero-title">Build & Deploy Websites in Seconds</h1>
+                <p>Upload your HTML files, get a custom subdomain, and launch your website instantly with our professional platform. No coding required beyond your files.</p>
+            </section>
+
+            <!-- Upload Section -->
+            <section class="card fade-in" aria-labelledby="upload-title">
+                <h2 id="upload-title">Upload Your Website</h2>
+                
+                <!-- Project Details Form -->
+                <form id="project-form" novalidate>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2.5rem;">
+                        <div class="form-group">
+                            <label class="form-label" for="user-name">Your Name *</label>
+                            <input type="text" id="user-name" class="form-input" placeholder="John Doe" required aria-describedby="user-name-help">
+                            <small id="user-name-help">Enter your name for project ownership.</small>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="app-name">App Name *</label>
+                            <input type="text" id="app-name" class="form-input" placeholder="my-awesome-app" required aria-describedby="app-name-help">
+                            <small id="app-name-help">This will be your subdomain: <span id="subdomain-preview" style="font-family: monospace; color: var(--primary-600);">my-awesome-app.[current-domain]</span></small>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Upload Zone -->
+                <div id="upload-zone" class="upload-zone" role="button" tabindex="0" aria-label="Drag and drop files here or click to browse. Supports HTML, CSS, JS, images, and more">
+                    <input type="file" id="file-input" class="file-input" multiple accept=".html,.css,.js,.json,.png,.jpg,.jpeg,.gif,.svg,.ico,.txt,.md">
+                    <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <div class="upload-text">Drag & drop your files here</div>
+                    <div class="upload-subtext">or click to browse • Supports HTML, CSS, JS, images, and more</div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div id="upload-progress" class="progress-bar" style="display: none;" aria-label="Upload progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                    <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+                </div>
+
+                <!-- File List -->
+                <div id="file-list" class="file-list" style="display: none;" role="list" aria-label="Uploaded files">
+                    <h3 style="margin-bottom: 1.5rem; font-size: 1.125rem;">Uploaded Files</h3>
+                    <div id="file-items" role="listbox"></div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="btn-group" style="display: flex; gap: 1rem; margin-top: 2.5rem; justify-content: center; flex-wrap: wrap;">
+                    <button id="publish-btn" class="btn btn-primary" disabled aria-disabled="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Publish Website
+                    </button>
+                    <button id="preview-btn" class="btn btn-secondary" disabled aria-disabled="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                        Preview
+                    </button>
+                    <button id="clear-btn" class="btn btn-secondary" disabled aria-disabled="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                        Clear All
+                    </button>
+                </div>
+            </section>
+
+            <!-- Templates Section -->
+            <section id="templates-section" class="card fade-in" style="display: none;" aria-labelledby="templates-title">
+                <h2 id="templates-title">Starter Templates</h2>
+                <p style="color: var(--gray-600); margin-bottom: 2rem;">Choose a template to kickstart your project. Files will be loaded automatically. Now with advanced professional templates.</p>
+                <div class="templates-grid">
+                    <div class="template-card" tabindex="0" role="button" aria-label="Portfolio Template">
+                        <h4>Portfolio</h4>
+                        <p>A clean, responsive portfolio site with sections for about, projects, and contact.</p>
+                        <button class="btn btn-primary" onclick="webCreator.loadTemplate('portfolio')">Load Template</button>
+                    </div>
+                    <div class="template-card" tabindex="0" role="button" aria-label="Blog Template">
+                        <h4>Blog</h4>
+                        <p>A simple blog layout with post listings, sidebar, and markdown support.</p>
+                        <button class="btn btn-primary" onclick="webCreator.loadTemplate('blog')">Load Template</button>
+                    </div>
+                    <div class="template-card" tabindex="0" role="button" aria-label="Landing Page Template">
+                        <h4>Landing Page</h4>
+                        <p>One-page marketing site with hero, features, testimonials, and CTA.</p>
+                        <button class="btn btn-primary" onclick="webCreator.loadTemplate('landing')">Load Template</button>
+                    </div>
+                    <div class="template-card" tabindex="0" role="button" aria-label="Software Developer Template">
+                        <h4>Software Developer</h4>
+                        <p>Professional developer portfolio with skills matrix, GitHub integration placeholders, and tech stack showcase.</p>
+                        <button class="btn btn-primary" onclick="webCreator.loadTemplate('software-developer')">Load Template</button>
+                    </div>
+                    <div class="template-card" tabindex="0" role="button" aria-label="Birthday Cards Template">
+                        <h4>Birthday Cards</h4>
+                        <p>Customizable greeting card site with animations, photo upload, and shareable designs.</p>
+                        <button class="btn btn-primary" onclick="webCreator.loadTemplate('birthday-cards')">Load Template</button>
+                    </div>
+                    <div class="template-card" tabindex="0" role="button" aria-label="Blogger Template">
+                        <h4>Blogger</h4>
+                        <p>Advanced blogging platform with categories, search, RSS feed, and comment sections.</p>
+                        <button class="btn btn-primary" onclick="webCreator.loadTemplate('blogger')">Load Template</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects-section" class="card fade-in" style="display: none;" aria-labelledby="projects-title">
+                <h2 id="projects-title">Your Projects</h2>
+                <div class="projects-list" id="projects-list"></div>
+                <button class="btn btn-primary" style="margin-top: 2rem;" onclick="webCreator.createNewProject()">New Project</button>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings-section" class="card fade-in" style="display: none;" aria-labelledby="settings-title">
+                <h2 id="settings-title">App Settings</h2>
+                <div class="settings-group">
+                    <label for="global-theme">Global Theme</label>
+                    <select id="global-theme" class="form-input">
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                        <option value="auto">Auto (System)</option>
+                    </select>
+                </div>
+                <div class="settings-group">
+                    <label for="storage-limit">Storage Limit</label>
+                    <input type="range" id="storage-limit" class="form-input" min="10" max="500" value="100" style="padding: 0.5rem;">
+                    <small id="storage-value">100 MB</small>
+                </div>
+                <div class="settings-group">
+                    <label>
+                        <input type="checkbox" id="auto-save" checked> Enable Auto-Save
+                    </label>
+                    <small>Automatically save changes every 30 seconds.</small>
+                </div>
+                <button class="btn btn-primary" onclick="webCreator.saveGlobalSettings()">Save Settings</button>
+            </section>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="card fade-in" style="display: none;" role="region" aria-labelledby="dashboard-title">
+                <h2 id="dashboard-title">Project Dashboard</h2>
+                <div class="dashboard">
+                    <aside class="sidebar" role="complementary" aria-label="Project navigation">
+                        <h3>Project Navigation</h3>
+                        <ul class="sidebar-nav" role="tablist">
+                            <li><a href="#overview" class="active" role="tab" aria-selected="true" data-tab="overview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg> Overview</a></li>
+                            <li><a href="#files" role="tab" aria-selected="false" data-tab="files"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg> Files</a></li>
+                            <li><a href="#project-settings" role="tab" aria-selected="false" data-tab="project-settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00-.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"></path></svg> Project Settings</a></li>
+                            <li><a href="#analytics" role="tab" aria-selected="false" data-tab="analytics"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg> Analytics</a></li>
+                            <li><a href="#deployments" role="tab" aria-selected="false" data-tab="deployments"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Deployments</a></li>
+                        </ul>
+                    </aside>
+                    <div class="content-area">
+                        <!-- Overview Tab -->
+                        <div id="overview-tab" class="tab-panel active" role="tabpanel">
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <h4>Status</h4>
+                                    <div class="status status-online" role="status">
+                                        <div class="icon"></div>
+                                        Online
+                                    </div>
+                                </div>
+                                <div class="stat-card">
+                                    <h4>Domain</h4>
+                                    <p id="project-domain" style="font-family: monospace; color: var(--primary-600); font-size: 1.125rem; cursor: pointer;" onclick="if (typeof webCreator !== 'undefined' && webCreator.subdomain) window.open('https://' + webCreator.subdomain, '_blank');"></p>
+                                    <small>Click to visit</small>
+                                </div>
+                                <div class="stat-card">
+                                    <h4>Total Files</h4>
+                                    <p id="project-files-count" style="color: var(--gray-900);">0 files</p>
+                                </div>
+                                <div class="stat-card">
+                                    <h4>Total Size</h4>
+                                    <p id="project-size" style="color: var(--gray-900);">0 KB</p>
+                                </div>
+                            </div>
+                            <div style="margin-top: 2rem;">
+                                <button class="btn btn-success" onclick="webCreator.exportProject()">Export Project</button>
+                                <button class="btn btn-secondary" onclick="webCreator.deleteProject()" style="margin-left: 1rem;">Delete Project</button>
+                            </div>
+                        </div>
+
+                        <!-- Files Tab -->
+                        <div id="files-tab" class="tab-panel" role="tabpanel">
+                            <h3>Project Files</h3>
+                            <div class="files-tab" id="dashboard-file-list"></div>
+                        </div>
+
+                        <!-- Project Settings Tab -->
+                        <div id="project-settings-tab" class="tab-panel" role="tabpanel">
+                            <h3>Project Settings</h3>
+                            <div class="settings-group">
+                                <label for="project-description">Description</label>
+                                <textarea id="project-description" class="form-input" rows="3" placeholder="Describe your project..."></textarea>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div class="settings-group">
+                                    <label for="custom-domain">Custom Domain</label>
+                                    <input type="text" id="custom-domain" class="form-input" placeholder="example.com">
+                                </div>
+                                <div class="settings-group">
+                                    <label for="project-theme-mode">Project Theme Mode</label>
+                                    <select id="project-theme-mode" class="form-input">
+                                        <option>Light</option>
+                                        <option>Dark</option>
+                                        <option>Auto</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" onclick="webCreator.saveProjectSettings()">Save Settings</button>
+                        </div>
+
+                        <!-- Analytics Tab -->
+                        <div id="analytics-tab" class="tab-panel" role="tabpanel">
+                            <h3>Analytics</h3>
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <h4>Visitors</h4>
+                                    <p id="visitors-count">1,234</p>
+                                    <small id="visitors-change">+12% this week</small>
+                                </div>
+                                <div class="stat-card">
+                                    <h4>Page Views</h4>
+                                    <p id="page-views">5,678</p>
+                                    <small>Avg. 4.6 per visit</small>
+                                </div>
+                                <div class="stat-card">
+                                    <h4>Bounce Rate</h4>
+                                    <p id="bounce-rate">32%</p>
+                                    <small>Improved from 45%</small>
+                                </div>
+                                <div class="stat-card">
+                                    <h4>Deployments</h4>
+                                    <p id="deployments-count">3</p>
+                                    <small>Last: Today</small>
+                                </div>
+                            </div>
+                            <div class="analytics-chart" style="margin-top: 2rem;">
+                                <svg width="100%" height="100%" viewBox="0 0 400 200">
+                                    <!-- Dynamic chart path will be updated via JS -->
+                                    <path id="chart-path" d="M0 150 L80 120 L160 80 L240 100 L320 60 L400 80 L400 150 L0 150" fill="none" stroke="var(--primary-500)" stroke-width="2"/>
+                                </svg>
+                                <p>Visitor trend (simulated - updates on load)</p>
+                            </div>
+                        </div>
+
+                        <!-- Deployments Tab -->
+                        <div id="deployments-tab" class="tab-panel" role="tabpanel">
+                            <h3>Deployment History</h3>
+                            <div id="deployments-list">
+                                <div class="deployment-item">
+                                    <span>Live - Today 14:30</span>
+                                    <div class="status status-online" style="font-size: 0.75rem;">Success</div>
+                                </div>
+                                <div class="deployment-item">
+                                    <span>v1.1 - Nov 5, 2025 10:15</span>
+                                    <div class="status status-online" style="font-size: 0.75rem;">Success</div>
+                                </div>
+                                <div class="deployment-item">
+                                    <span>v1.0 - Nov 1, 2025 09:00</span>
+                                    <div class="status status-building" style="font-size: 0.75rem;">Building</div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" style="margin-top: 1rem;" onclick="webCreator.redeploy()">Redeploy</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Code Editor Modal -->
+    <div id="editor-modal" class="modal" role="dialog" aria-labelledby="editor-title" aria-hidden="true">
+        <div class="modal-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3 id="editor-title">Edit File</h3>
+                <button id="close-editor" class="btn-icon" aria-label="Close editor">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="code-editor">
+                <div class="code-editor-header">
+                    <span id="current-file" style="font-family: monospace;">index.html</span>
+                    <button id="save-file" class="btn btn-primary btn-sm">Save Changes</button>
+                </div>
+                <textarea id="code-editor" class="code-editor-content" placeholder="<!-- Start editing your file here. Changes will be saved locally and reflected in previews. -->" aria-label="Code editor"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preview Modal -->
+    <div id="preview-modal" class="modal" role="dialog" aria-labelledby="preview-title" aria-hidden="true">
+        <div class="modal-content" style="max-width: 95%; max-height: 95vh;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3 id="preview-title">Live Preview</h3>
+                <button id="close-preview" class="btn-icon" aria-label="Close preview">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="preview-container">
+                <div class="preview-header">
+                    <input type="url" id="preview-url" class="form-input" placeholder="https://preview.[current-domain]" readonly aria-label="Preview URL">
+                    <button id="refresh-preview" class="btn btn-secondary btn-sm">Refresh</button>
+                </div>
+                <iframe id="preview-frame" class="preview-frame" title="Live website preview" aria-label="Preview of uploaded website"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Live Region for Screen Readers -->
+    <div id="live-region" aria-live="polite" aria-atomic="true" style="position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden;"></div>
+
+    <script>
+        // WebCreator Pro - Advanced Professional Edition with Full Features
+        class WebCreatorPro {
+            constructor() {
+                this.files = new Map();
+                this.projects = [];
+                this.currentProject = null;
+                this.subdomain = null;
+                this.baseDomain = window.location.host;
+                this.db = null;
+                this.cache = null;
+                this.offlineMode = false;
+                this.storageInfo = null;
+                this.syncRegistration = null;
+                this.liveRegion = document.getElementById('live-region');
+                this.autoSaveInterval = null;
+                this.analyticsData = {
+                    visitors: 1234,
+                    pageViews: 5678,
+                    bounceRate: 32,
+                    deployments: 3,
+                    trend: [150, 120, 80, 100, 60, 80] // Simulated trend data
+                };
+                this.templates = {
+                    portfolio: {
+                        'index.html': `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header><nav><ul><li><a href="#about">About</a></li><li><a href="#projects">Projects</a></li><li><a href="#contact">Contact</a></li></ul></nav></header>
+    <section id="about"><h1>About Me</h1><p>Creative professional with passion for design.</p></section>
+    <section id="projects"><h2>Projects</h2><div class="project-grid"><div class="project-card"><h3>Project 1</h3><p>Description</p></div></div></section>
+    <section id="contact"><h2>Contact</h2><form><input type="email" placeholder="Email"><button>Send</button></form></section>
+    <footer>&copy; 2025 Portfolio</footer>
+</body>
+</html>`,
+                        'style.css': `body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+header { background: #333; color: white; padding: 1rem; }
+nav ul { list-style: none; display: flex; gap: 1rem; }
+section { padding: 2rem; }
+.project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+.project-card { border: 1px solid #ddd; padding: 1rem; border-radius: 8px; }
+footer { background: #333; color: white; text-align: center; padding: 1rem; }`
+                    },
+                    blog: {
+                        'index.html': `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blog</title>
+    <link rel="stylesheet" href="blog.css">
+</head>
+<body>
+    <header><h1>Welcome to My Blog</h1></header>
+    <main><article><h2>Post 1</h2><p>Content here. Published on <time>2025-11-06</time>.</p></article></main>
+    <aside><h3>Sidebar</h3><ul><li>Category 1</li></ul></aside>
+    <footer>&copy; 2025 Blog</footer>
+</body>
+</html>`,
+                        'blog.css': `body { font-family: Arial, sans-serif; display: grid; grid-template-areas: "header" "main aside" "footer"; }
+header { grid-area: header; background: #f4f4f4; padding: 1rem; }
+main { grid-area: main; padding: 1rem; }
+aside { grid-area: aside; background: #eee; padding: 1rem; }
+footer { grid-area: footer; text-align: center; }`
+                    },
+                    landing: {
+                        'index.html': `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="landing.css">
+</head>
+<body>
+    <section class="hero"><h1>Hero Section</h1><p>Call to action.</p><button>Learn More</button></section>
+    <section class="features"><h2>Features</h2><div class="feature-list"><div class="feature"><h3>Feature 1</h3><p>Details.</p></div></div></section>
+    <footer>&copy; 2025 Landing</footer>
+</body>
+</html>`,
+                        'landing.css': `.hero { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 4rem 2rem; text-align: center; }
+.features { padding: 2rem; }
+.feature-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }`
+                    },
+                    'software-developer': {
+                        'index.html': `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Developer Portfolio</title>
+    <link rel="stylesheet" href="dev-style.css">
+</head>
+<body>
+    <header><nav><ul><li><a href="#home">Home</a></li><li><a href="#skills">Skills</a></li><li><a href="#projects">Projects</a></li><li><a href="#github">GitHub</a></li></ul></nav></header>
+    <section id="home"><h1>John Doe - Software Developer</h1><p>Full-stack developer specializing in React, Node.js, and cloud services.</p></section>
+    <section id="skills"><h2>Skills Matrix</h2><div class="skills-grid"><div class="skill"><h3>Frontend</h3><ul><li>React</li><li>Vue</li></ul></div><div class="skill"><h3>Backend</h3><ul><li>Node.js</li><li>Python</li></ul></div></div></section>
+    <section id="projects"><h2>Featured Projects</h2><div class="project-card"><h3>App X</h3><p>Scalable web app with 10k users.</p><a href="#">View on GitHub</a></div></section>
+    <footer>&copy; 2025 Developer Portfolio</footer>
+</body>
+</html>`,
+                        'dev-style.css': `body { font-family: 'Courier New', monospace; margin: 0; }
+header { background: #0d1117; color: #58a6ff; padding: 1rem; }
+nav ul { display: flex; gap: 1rem; list-style: none; }
+section { padding: 2rem; }
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+.project-card { border: 1px solid #30363d; padding: 1rem; border-radius: 6px; background: #161b22; }
+a { color: #58a6ff; text-decoration: none; }`
+                    },
+                    'birthday-cards': {
+                        'index.html': `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Cards</title>
+    <link rel="stylesheet" href="cards.css">
+</head>
+<body>
+    <header><h1>Create Birthday Cards</h1></header>
+    <main><div class="card-generator"><h2>Design Your Card</h2><input type="file" id="photo-upload" accept="image/*"><textarea placeholder="Happy Birthday!"></textarea><button onclick="generateCard()">Generate & Share</button></div><div id="card-preview" class="card-preview"></div></main>
+    <footer>&copy; 2025 Birthday Cards</footer>
+</body>
+</html>`,
+                        'cards.css': `body { font-family: 'Comic Sans MS', cursive; background: linear-gradient(135deg, #ff9a9e, #fecfef); }
+header { text-align: center; color: #ff6b6b; padding: 1rem; }
+.card-generator { background: white; padding: 2rem; border-radius: 10px; margin: 1rem; }
+.card-preview { width: 300px; height: 400px; background: white; margin: 1rem auto; border: 2px dashed #ff6b6b; border-radius: 10px; display: flex; align-items: center; justify-content: center; animation: bounce 2s infinite; }
+@keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }`
+                    },
+                    blogger: {
+                        'index.html': `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Blogger</title>
+    <link rel="stylesheet" href="blogger.css">
+</head>
+<body>
+    <header><h1>Blogger Pro</h1><nav><input type="search" placeholder="Search posts..."><a href="#">RSS</a></nav></header>
+    <main><article><h2>Advanced Blog Post</h2><p>Content with categories: Tech, Lifestyle.</p><div class="comments"><h3>Comments</h3><p>Comment 1</p></div></article></main>
+    <aside><h3>Categories</h3><ul><li><a href="#">Tech</a></li><li><a href="#">Lifestyle</a></li></ul></aside>
+    <footer>&copy; 2025 Blogger</footer>
+</body>
+</html>`,
+                        'blogger.css': `body { font-family: Georgia, serif; display: grid; grid-template-areas: "header" "main aside" "footer"; gap: 1rem; padding: 1rem; }
+header { grid-area: header; background: #f8f9fa; padding: 1rem; border-bottom: 1px solid #dee2e6; }
+nav { display: flex; gap: 1rem; align-items: center; }
+main { grid-area: main; max-width: 700px; }
+aside { grid-area: aside; background: #e9ecef; padding: 1rem; }
+footer { grid-area: footer; text-align: center; border-top: 1px solid #dee2e6; padding: 1rem; }
+.comments { margin-top: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 4px; }`
+                    }
+                };
+                
+                this.initializeEventListeners();
+                this.initializeDragAndDrop();
+                this.loadSavedProjects().catch(err => this.handleErrors(err, 'loading projects'));
+                this.init();
+                this.updateInitialPreviews();
+                this.initializeTheme();
+                this.initializeAnalytics();
+            }
+
+            updateInitialPreviews() {
+                const previewEl = document.getElementById('subdomain-preview');
+                if (previewEl) {
+                    previewEl.textContent = `my-awesome-app.${this.baseDomain}`;
+                }
+                const urlInputPlaceholder = document.getElementById('preview-url');
+                if (urlInputPlaceholder) {
+                    urlInputPlaceholder.placeholder = `https://preview.${this.baseDomain}`;
+                }
+            }
+
+            // ===== CORE INITIALIZATION =====
+            async init() {
+                try {
+                    await this.initializeAdvancedStorage();
+                    await this.initializeAdvancedServiceWorker();
+                    await this.implementAdvancedCaching();
+                    await this.initializePerformanceMonitoring();
+                    await this.enableAppInstallation();
+                    await this.checkOfflineStatus();
+                    
+                    window.addEventListener('online', () => this.checkOfflineStatus());
+                    window.addEventListener('offline', () => this.checkOfflineStatus());
+                    
+                    console.log('🚀 WebCreator Pro Advanced Professional Edition fully initialized');
+                    this.announce('WebCreator Pro Advanced is ready with full features.');
+                } catch (error) {
+                    this.handleErrors(error, 'initialization');
+                }
+            }
+
+            handleErrors(error, context = 'unknown') {
+                console.error(`Error in ${context}:`, error);
+                this.showToast(`An error occurred in ${context}: ${error.message}`, 'error');
+                this.announce(`Error in ${context}.`);
+            }
+
+            announce(message) {
+                if (this.liveRegion) {
+                    this.liveRegion.textContent = message;
+                    setTimeout(() => { this.liveRegion.textContent = ''; }, 1000);
+                }
+            }
+
+            // ===== THEME MANAGEMENT =====
+            initializeTheme() {
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                const isAuto = savedTheme === 'auto';
+                const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                const initialTheme = isAuto ? systemTheme : savedTheme;
+                document.body.setAttribute('data-theme', initialTheme);
+                this.updateThemeIcon(initialTheme);
+
+                const toggle = document.getElementById('theme-toggle');
+                if (toggle) {
+                    toggle.addEventListener('click', () => this.toggleTheme());
+                }
+
+                const globalThemeSelect = document.getElementById('global-theme');
+                if (globalThemeSelect) {
+                    globalThemeSelect.value = savedTheme;
+                    globalThemeSelect.addEventListener('change', (e) => {
+                        const newTheme = e.target.value;
+                        localStorage.setItem('theme', newTheme);
+                        if (newTheme === 'auto') {
+                            const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                            document.body.setAttribute('data-theme', system);
+                            this.updateThemeIcon(system);
+                        } else {
+                            document.body.setAttribute('data-theme', newTheme);
+                            this.updateThemeIcon(newTheme);
+                        }
+                    });
+                }
+
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                    if (localStorage.getItem('theme') === 'auto') {
+                        document.body.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+                        this.updateThemeIcon(e.matches ? 'dark' : 'light');
+                    }
+                });
+            }
+
+            toggleTheme() {
+                const current = document.body.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.body.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                this.updateThemeIcon(next);
+                this.showToast(`Theme switched to ${next}.`, 'info');
+            }
+
+            updateThemeIcon(theme) {
+                const icon = document.getElementById('theme-icon');
+                if (icon) {
+                    if (theme === 'dark') {
+                        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>'; // Moon
+                    } else {
+                        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>'; // Sun
+                    }
+                }
+            }
+
+            saveGlobalSettings() {
+                const theme = document.getElementById('global-theme').value;
+                const autoSave = document.getElementById('auto-save').checked;
+                localStorage.setItem('theme', theme);
+                localStorage.setItem('auto-save', autoSave);
+                if (autoSave && !this.autoSaveInterval) {
+                    this.startAutoSave();
+                } else if (!autoSave && this.autoSaveInterval) {
+                    this.stopAutoSave();
+                }
+                this.showToast('Global settings saved.', 'success');
+            }
+
+            startAutoSave() {
+                this.autoSaveInterval = setInterval(() => {
+                    if (this.currentProject) {
+                        this.saveProjectToIndexedDB(this.currentProject, this.files);
+                        this.showToast('Auto-saved project.', 'info');
+                    }
+                }, 30000);
+            }
+
+            stopAutoSave() {
+                if (this.autoSaveInterval) {
+                    clearInterval(this.autoSaveInterval);
+                    this.autoSaveInterval = null;
+                }
+            }
+
+            // ===== ANALYTICS ENHANCEMENT =====
+            initializeAnalytics() {
+                this.updateAnalyticsUI();
+                // Simulate dynamic updates
+                setInterval(() => {
+                    this.analyticsData.visitors += Math.floor(Math.random() * 100);
+                    this.analyticsData.pageViews += Math.floor(Math.random() * 200);
+                    this.updateAnalyticsUI();
+                }, 10000);
+            }
+
+            updateAnalyticsUI() {
+                document.getElementById('visitors-count').textContent = this.analyticsData.visitors.toLocaleString();
+                document.getElementById('page-views').textContent = this.analyticsData.pageViews.toLocaleString();
+                document.getElementById('bounce-rate').textContent = `${this.analyticsData.bounceRate}%`;
+                document.getElementById('deployments-count').textContent = this.analyticsData.deployments;
+                // Update chart path
+                const trend = this.analyticsData.trend;
+                const max = Math.max(...trend);
+                const min = 150; // Baseline
+                const points = trend.map((val, i) => `${i * 66.66} ${150 - ((val / max) * 100)}`).join(' L ');
+                const path = document.getElementById('chart-path');
+                if (path) {
+                    path.setAttribute('d', `M0 150 L${points} L400 150 L0 150`);
+                }
+            }
+
+            // ===== EVENT LISTENERS =====
+            initializeEventListeners() {
+                // Form validation
+                const form = document.getElementById('project-form');
+                form.addEventListener('input', () => {
+                    const userName = document.getElementById('user-name').value.trim();
+                    const appName = document.getElementById('app-name').value.trim();
+                    const inputs = form.querySelectorAll('input');
+                    inputs.forEach(input => {
+                        input.classList.toggle('error', !input.value.trim());
+                    });
+                    this.updateSubdomainPreview();
+                    this.toggleActionButtons();
+                });
+
+                // File input
+                document.getElementById('file-input').addEventListener('change', (e) => this.handleFileSelect(e));
+
+                // Buttons
+                document.getElementById('publish-btn').addEventListener('click', () => this.publishWebsite());
+                document.getElementById('preview-btn').addEventListener('click', () => this.showPreview());
+                document.getElementById('clear-btn').addEventListener('click', () => this.clearAllFiles());
+
+                // Modal controls
+                document.getElementById('close-editor').addEventListener('click', () => this.closeModal('editor-modal'));
+                document.getElementById('close-preview').addEventListener('click', () => this.closeModal('preview-modal'));
+                document.getElementById('save-file').addEventListener('click', () => this.saveFile());
+                document.getElementById('refresh-preview').addEventListener('click', () => this.refreshPreview());
+
+                // Form submission prevention
+                form.addEventListener('submit', (e) => e.preventDefault());
+
+                // Global modal close on escape
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        document.querySelectorAll('.modal.active').forEach(modal => {
+                            modal.classList.remove('active');
+                            modal.setAttribute('aria-hidden', 'true');
+                        });
+                    }
+                });
+
+                // Click outside modal
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.addEventListener('click', (e) => {
+                        if (e.target === modal) this.closeModal(modal.id);
+                    });
+                });
+
+                // Nav links
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const target = link.getAttribute('href').substring(1);
+                        this.showSection(target);
+                    });
+                });
+
+                // Dashboard tabs
+                document.querySelectorAll('.sidebar-nav a').forEach(tab => {
+                    tab.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const tabId = tab.getAttribute('data-tab');
+                        this.switchDashboardTab(tabId);
+                    });
+                });
+
+                // Project theme mode
+                const projectThemeSelect = document.getElementById('project-theme-mode');
+                if (projectThemeSelect) {
+                    projectThemeSelect.addEventListener('change', (e) => {
+                        if (this.currentProject) {
+                            this.currentProject.themeMode = e.target.value;
+                        }
+                    });
+                }
+
+                // Storage limit slider
+                const storageSlider = document.getElementById('storage-limit');
+                const storageValue = document.getElementById('storage-value');
+                if (storageSlider && storageValue) {
+                    storageSlider.addEventListener('input', (e) => {
+                        storageValue.textContent = `${e.target.value} MB`;
+                    });
+                }
+            }
+
+            showSection(section) {
+                document.querySelectorAll('[id$="-section"]').forEach(s => s.style.display = 'none');
+                const targetSection = document.getElementById(`${section}-section`);
+                if (targetSection) targetSection.style.display = 'block';
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                const activeLink = document.querySelector(`.nav-link[href="#${section}"]`);
+                if (activeLink) activeLink.classList.add('active');
+                this.announce(`Switched to ${section} section.`);
+            }
+
+            switchDashboardTab(tabId) {
+                document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                const targetTab = document.getElementById(`${tabId}-tab`);
+                if (targetTab) targetTab.classList.add('active');
+                document.querySelectorAll('.sidebar-nav a').forEach(t => {
+                    t.classList.remove('active');
+                    t.setAttribute('aria-selected', 'false');
+                });
+                const activeTab = document.querySelector(`[data-tab="${tabId}"]`);
+                if (activeTab) {
+                    activeTab.classList.add('active');
+                    activeTab.setAttribute('aria-selected', 'true');
+                }
+                if (tabId === 'files') this.updateDashboardFileList();
+                if (tabId === 'analytics') this.updateAnalyticsUI();
+                this.announce(`Switched to ${tabId} tab.`);
+            }
+
+            // ===== DRAG & DROP ===== (unchanged from previous)
+            initializeDragAndDrop() {
+                const uploadZone = document.getElementById('upload-zone');
+
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    uploadZone.addEventListener(eventName, this.preventDefaults, false);
+                    document.body.addEventListener(eventName, this.preventDefaults, false);
+                });
+
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    uploadZone.addEventListener(eventName, this.highlight, false);
+                });
+
+                ['dragleave', 'drop'].forEach(eventName => {
+                    uploadZone.addEventListener(eventName, this.unhighlight, false);
+                });
+
+                uploadZone.addEventListener('drop', (e) => this.handleDrop(e), false);
+                uploadZone.addEventListener('click', () => document.getElementById('file-input').click());
+
+                uploadZone.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        document.getElementById('file-input').click();
+                    }
+                });
+            }
+
+            preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            highlight(e) {
+                const uploadZone = document.getElementById('upload-zone');
+                if (e.dataTransfer && e.dataTransfer.items) {
+                    const hasFiles = Array.from(e.dataTransfer.items).some(item => item.kind === 'file');
+                    if (hasFiles) {
+                        uploadZone.classList.add('drag-over');
+                        uploadZone.classList.remove('drag-invalid');
+                    } else {
+                        uploadZone.classList.add('drag-invalid');
+                        uploadZone.classList.remove('drag-over');
+                    }
+                }
+            }
+
+            unhighlight() {
+                const uploadZone = document.getElementById('upload-zone');
+                uploadZone.classList.remove('drag-over', 'drag-invalid');
+            }
+
+            handleDrop(e) {
+                this.unhighlight();
+                const files = Array.from(e.dataTransfer.files);
+                this.processFiles(files);
+            }
+
+            handleFileSelect(e) {
+                const files = Array.from(e.target.files);
+                this.processFiles(files);
+                e.target.value = '';
+            }
+
+            // ===== FILE PROCESSING ===== (unchanged)
+            processFiles(files) {
+                let validCount = 0;
+                let invalidCount = 0;
+
+                files.forEach(file => {
+                    if (this.validateFile(file)) {
+                        if (!this.files.has(file.name) || confirm(`File "${file.name}" already exists. Overwrite?`)) {
+                            this.files.set(file.name, file);
+                            validCount++;
+                        }
+                    } else {
+                        invalidCount++;
+                    }
+                });
+
+                if (validCount > 0) {
+                    this.updateFileList();
+                    this.showToast(`${validCount} file(s) uploaded successfully`, 'success');
+                    this.announce(`${validCount} files uploaded.`);
+                    this.toggleActionButtons();
+                }
+
+                if (invalidCount > 0) {
+                    this.showToast(`${invalidCount} file(s) invalid and skipped`, 'warning');
+                }
+            }
+
+            validateFile(file) {
+                const validTypes = [
+                    'text/html', 'text/css', 'application/javascript', 'application/json',
+                    'image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/svg+xml',
+                    'image/x-icon', 'text/plain', 'text/markdown'
+                ];
+                const maxSize = 10 * 1024 * 1024;
+
+                const isValidType = validTypes.includes(file.type) || /\.(js|html|css|json|png|jpg|jpeg|gif|svg|ico|txt|md)$/.test(file.name.toLowerCase());
+                
+                if (!isValidType) {
+                    this.showToast(`Unsupported file type: ${file.name}. Only web assets allowed.`, 'error');
+                    return false;
+                }
+
+                if (file.size > maxSize) {
+                    this.showToast(`File too large (${this.formatFileSize(file.size)}): ${file.name}. Max 10MB.`, 'error');
+                    return false;
+                }
+
+                if (this.files.size + 1 > 100) {
+                    this.showToast('Too many files. Maximum 100 files per project.', 'error');
+                    return false;
+                }
+
+                return true;
+            }
+
+            // ===== UI UPDATES ===== (enhanced with theme awareness)
+            updateFileList() {
+                const fileList = document.getElementById('file-list');
+                const fileItems = document.getElementById('file-items');
+                
+                fileList.style.display = this.files.size > 0 ? 'block' : 'none';
+                fileItems.innerHTML = '';
+
+                this.files.forEach((file, filename) => {
+                    const fileItem = this.createFileItem(file, filename);
+                    fileItems.appendChild(fileItem);
+                });
+
+                this.updateProjectStats();
+                this.announce(`File list updated. Total: ${this.files.size} files.`);
+            }
+
+            updateDashboardFileList() {
+                const dashboardList = document.getElementById('dashboard-file-list');
+                if (!dashboardList) return;
+                dashboardList.innerHTML = '';
+                this.files.forEach((file, filename) => {
+                    const div = document.createElement('div');
+                    div.className = 'file-item';
+                    div.innerHTML = `
+                        <div class="file-info">
+                            <div class="file-icon">${this.getFileIcon(file.type, filename)}</div>
+                            <div class="file-details">
+                                <h4>${this.escapeHtml(filename)}</h4>
+                                <p>${this.formatFileSize(file.size)}</p>
+                            </div>
+                        </div>
+                        <div class="file-actions">
+                            <button class="btn-icon" onclick="webCreator.editFile('${this.escapeHtml(filename)}')" aria-label="Edit">✏️</button>
+                            <button class="btn-icon" onclick="webCreator.previewFile('${this.escapeHtml(filename)}')" aria-label="Preview">👁️</button>
+                            <button class="btn-icon" onclick="webCreator.deleteFile('${this.escapeHtml(filename)}')" aria-label="Delete">🗑️</button>
+                        </div>
+                    `;
+                    dashboardList.appendChild(div);
+                });
+            }
+
+            createFileItem(file, filename) {
+                const div = document.createElement('div');
+                div.className = 'file-item fade-in';
+                div.setAttribute('role', 'listitem');
+                div.setAttribute('tabindex', '0');
+                
+                const fileIcon = this.getFileIcon(file.type, filename);
+                const fileSize = this.formatFileSize(file.size);
+                const type = file.type || filename.split('.').pop().toUpperCase();
+                
+                div.innerHTML = `
+                    <div class="file-info">
+                        <div class="file-icon" aria-hidden="true">${fileIcon}</div>
+                        <div class="file-details">
+                            <h4 title="${filename}">${this.escapeHtml(filename)}</h4>
+                            <p>${fileSize} • ${type}</p>
+                        </div>
+                    </div>
+                    <div class="file-actions" role="group" aria-label="File actions">
+                        <button class="btn-icon" onclick="webCreator.editFile('${this.escapeHtml(filename)}')" title="Edit file" aria-label="Edit ${filename}">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                        </button>
+                        <button class="btn-icon" onclick="webCreator.previewFile('${this.escapeHtml(filename)}')" title="Preview file" aria-label="Preview ${filename}">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                        <button class="btn-icon" onclick="webCreator.deleteFile('${this.escapeHtml(filename)}')" title="Delete file" aria-label="Delete ${filename}">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            </svg>
+                        </button>
+                    </div>
+                `;
+                
+                return div;
+            }
+
+            escapeHtml(unsafe) {
+                return unsafe.replace(/[&<"']/g, (m) => ({'&': '&amp;', '<': '&lt;', '"': '&quot;', "'": '&#039;'}[m]));
+            }
+
+            getFileIcon(type, filename) {
+                const ext = filename.split('.').pop().toLowerCase();
+                const icons = {
+                    html: '📄',
+                    css: '🎨',
+                    js: '⚡',
+                    json: '📋',
+                    png: '🖼️', jpg: '🖼️', jpeg: '🖼️', gif: '🖼️', svg: '🖼️',
+                    ico: '🔗',
+                    md: '📝', txt: '📝',
+                    default: '📎'
+                };
+                return icons[ext] || (type.includes('image') ? '🖼️' : icons.default);
+            }
+
+            formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+
+            updateProjectStats() {
+                let totalSize = 0;
+                this.files.forEach(file => totalSize += file.size);
+                const sizeEl = document.getElementById('project-size');
+                const countEl = document.getElementById('project-files-count');
+                if (sizeEl) sizeEl.textContent = this.formatFileSize(totalSize);
+                if (countEl) countEl.textContent = `${this.files.size} files`;
+            }
+
+            updateSubdomainPreview() {
+                const userName = document.getElementById('user-name').value.trim();
+                const appName = document.getElementById('app-name').value.trim();
+                
+                if (appName) {
+                    let subdomain = appName.toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/^-+|-+$/g, '');
+                    if (subdomain.length < 3) subdomain = 'app';
+                    this.subdomain = `${subdomain}.${this.baseDomain}`;
+                    const previewEl = document.getElementById('subdomain-preview');
+                    if (previewEl) previewEl.textContent = this.subdomain;
+                }
+            }
+
+            toggleActionButtons() {
+                const hasFiles = this.files.size > 0;
+                const userName = document.getElementById('user-name').value.trim();
+                const appName = document.getElementById('app-name').value.trim();
+                const isValid = hasFiles && userName && appName;
+
+                const buttons = ['publish-btn', 'preview-btn', 'clear-btn'];
+                buttons.forEach(id => {
+                    const btn = document.getElementById(id);
+                    if (btn) {
+                        btn.disabled = !isValid;
+                        btn.setAttribute('aria-disabled', !isValid ? 'true' : 'false');
+                    }
+                });
+
+                const clearBtn = document.getElementById('clear-btn');
+                if (clearBtn) {
+                    clearBtn.disabled = !hasFiles;
+                }
+            }
+
+            // ===== FILE ACTIONS ===== (unchanged)
+            editFile(filename) {
+                const file = this.files.get(filename);
+                if (!file) {
+                    this.showToast('File not found.', 'error');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const editor = document.getElementById('code-editor');
+                    const title = document.getElementById('editor-title');
+                    const currentFile = document.getElementById('current-file');
+                    const modal = document.getElementById('editor-modal');
+                    if (editor) editor.value = e.target.result;
+                    if (title) title.textContent = `Edit ${filename}`;
+                    if (currentFile) currentFile.textContent = filename;
+                    if (modal) {
+                        modal.classList.add('active');
+                        modal.setAttribute('aria-hidden', 'false');
+                    }
+                    if (editor) editor.focus();
+                    this.announce(`Editing ${filename}.`);
+                };
+                reader.readAsText(file);
+            }
+
+            saveFile() {
+                const content = document.getElementById('code-editor').value;
+                const filename = document.getElementById('current-file').textContent;
+                const type = filename.endsWith('.html') ? 'text/html' : 
+                            filename.endsWith('.css') ? 'text/css' : 
+                            filename.endsWith('.js') ? 'application/javascript' : 'text/plain';
+                const blob = new Blob([content], { type });
+                const file = new File([blob], filename, { type });
+                this.files.set(filename, file);
+                this.updateFileList();
+                this.updateDashboardFileList();
+                this.closeModal('editor-modal');
+                this.showToast('File saved successfully!', 'success');
+                this.announce('File saved.');
+            }
+
+            previewFile(filename) {
+                if (!filename.endsWith('.html')) {
+                    this.showToast('Only HTML files can be previewed individually.', 'info');
+                    return;
+                }
+                this.showPreview(filename);
+            }
+
+            deleteFile(filename) {
+                if (confirm(`Delete "${filename}"? This cannot be undone.`)) {
+                    this.files.delete(filename);
+                    this.updateFileList();
+                    this.updateDashboardFileList();
+                    this.showToast('File deleted.', 'info');
+                    this.announce(`Deleted ${filename}.`);
+                    this.toggleActionButtons();
+                }
+            }
+
+            clearAllFiles() {
+                if (confirm('Clear all uploaded files?')) {
+                    this.files.clear();
+                    this.updateFileList();
+                    this.updateDashboardFileList();
+                    this.showToast('All files cleared.', 'info');
+                    this.announce('All files cleared.');
+                    this.toggleActionButtons();
+                }
+            }
+
+            // ===== PREVIEW & PUBLISH ===== (unchanged)
+            showPreview(specificFile = null) {
+                const modal = document.getElementById('preview-modal');
+                if (!modal) return;
+                modal.classList.add('active');
+                modal.setAttribute('aria-hidden', 'false');
+
+                const frame = document.getElementById('preview-frame');
+                const urlInput = document.getElementById('preview-url');
+                if (urlInput) urlInput.value = this.subdomain || `preview.${this.baseDomain}/${specificFile || 'index.html'}`;
+
+                let targetFile = specificFile || 'index.html';
+                const file = this.files.get(targetFile) || Array.from(this.files.values()).find(f => f.name.endsWith('.html')) || 
+                            new File(['<h1>No HTML files found. Upload an index.html to get started!</h1>'], 'placeholder.html', { type: 'text/html' });
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    if (frame) frame.srcdoc = e.target.result;
+                };
+                reader.readAsText(file);
+                
+                this.announce('Preview opened.');
+            }
+
+            refreshPreview() {
+                this.showPreview();
+                this.showToast('Preview refreshed.', 'info');
+            }
+
+            async publishWebsite() {
+                const userName = document.getElementById('user-name').value.trim();
+                const appName = document.getElementById('app-name').value.trim();
+
+                if (!userName || !appName || this.files.size === 0) {
+                    this.showToast('Please provide your name, app name, and upload at least one file.', 'error');
+                    return;
+                }
+
+                this.currentProject = {
+                    id: `proj_${Date.now()}`,
+                    name: appName,
+                    subdomain: this.subdomain,
+                    owner: userName,
+                    fileCount: this.files.size,
+                    totalSize: Array.from(this.files.values()).reduce((sum, f) => sum + f.size, 0),
+                    createdAt: new Date().toISOString(),
+                    status: 'building',
+                    lastDeployed: new Date().toISOString(),
+                    description: '',
+                    customDomain: '',
+                    themeMode: 'light'
+                };
+
+                try {
+                    await this.saveProjectToIndexedDB(this.currentProject, this.files);
+                    this.projects.unshift(this.currentProject);
+                    this.analyticsData.deployments++;
+
+                    this.simulateDeployment();
+
+                    const dashboardSection = document.getElementById('dashboard-section');
+                    if (dashboardSection) dashboardSection.style.display = 'block';
+                    this.showSection('dashboard');
+                    const domainEl = document.getElementById('project-domain');
+                    if (domainEl) domainEl.textContent = this.subdomain;
+                    const statusEl = document.querySelector('.status');
+                    if (statusEl) {
+                        statusEl.classList.remove('status-building', 'status-offline');
+                        statusEl.classList.add('status-online');
+                        statusEl.innerHTML = '<div class="icon"></div> Live';
+                    }
+
+                    this.updateDashboardFileList();
+                    this.updateAnalyticsUI();
+                    this.showToast(`Congratulations! Your site is live at ${this.subdomain}`, 'success');
+                    this.announce(`Project published successfully. Visit ${this.subdomain}.`);
+                } catch (error) {
+                    this.handleErrors(error, 'publishing project');
+                }
+            }
+
+            simulateDeployment() {
+                const progress = document.getElementById('upload-progress');
+                const fill = document.getElementById('progress-fill');
+                if (!progress || !fill) return;
+                progress.style.display = 'block';
+                fill.style.width = '0%';
+                progress.setAttribute('aria-valuenow', '0');
+
+                let currentProgress = 0;
+                const interval = setInterval(() => {
+                    currentProgress += Math.random() * 10 + 5;
+                    if (currentProgress > 100) currentProgress = 100;
+                    fill.style.width = currentProgress + '%';
+                    progress.setAttribute('aria-valuenow', currentProgress);
+                    if (currentProgress >= 100) {
+                        clearInterval(interval);
+                        progress.style.display = 'none';
+                        this.createVirtualSubdomain(this.currentProject ? this.currentProject.name : 'project');
+                    }
+                }, 300);
+            }
+
+            createVirtualSubdomain(name) {
+                console.log(`Virtual subdomain created: ${name}.${this.baseDomain}`);
+            }
+
+            // ===== TEMPLATES ===== (enhanced with new ones)
+            loadTemplate(templateName) {
+                const template = this.templates[templateName];
+                if (!template) {
+                    this.showToast('Template not found.', 'error');
+                    return;
+                }
+
+                Object.entries(template).forEach(([name, content]) => {
+                    const type = name.endsWith('.html') ? 'text/html' : name.endsWith('.css') ? 'text/css' : 'text/plain';
+                    const blob = new Blob([content], { type });
+                    const file = new File([blob], name, { type });
+                    this.files.set(name, file);
+                });
+
+                this.updateFileList();
+                this.updateDashboardFileList();
+                this.showToast(`${templateName.charAt(0).toUpperCase() + templateName.slice(1)} template loaded!`, 'success');
+                this.announce(`${templateName} template loaded with ${Object.keys(template).length} files.`);
+                this.toggleActionButtons();
+            }
+
+            // ===== PROJECTS ===== (enhanced with theme save)
+            async createNewProject() {
+                this.files.clear();
+                this.currentProject = null;
+                this.subdomain = null;
+                const userNameEl = document.getElementById('user-name');
+                const appNameEl = document.getElementById('app-name');
+                const form = document.getElementById('project-form');
+                if (userNameEl) userNameEl.value = '';
+                if (appNameEl) appNameEl.value = '';
+                if (form) form.reset();
+                this.updateFileList();
+                this.updateDashboardFileList();
+                this.showSection('upload');
+                this.showToast('New project created.', 'info');
+            }
+
+            exportProject() {
+                if (!this.currentProject) return;
+                const projectData = { ...this.currentProject, files: Array.from(this.files.entries()) };
+                const dataStr = JSON.stringify(projectData, null, 2);
+                const blob = new Blob([dataStr], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${this.currentProject.name}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+                this.showToast('Project exported as JSON.', 'success');
+            }
+
+            async deleteProject() {
+                if (!this.currentProject || !confirm('Delete this project? All data will be lost.')) return;
+                try {
+                    await this.deleteProjectFromIndexedDB(this.currentProject.id);
+                    this.projects = this.projects.filter(p => p.id !== this.currentProject.id);
+                    this.loadSavedProjectsUI();
+                    this.createNewProject();
+                    this.showToast('Project deleted.', 'warning');
+                } catch (error) {
+                    this.handleErrors(error, 'deleting project');
+                }
+            }
+
+            saveProjectSettings() {
+                if (this.currentProject) {
+                    this.currentProject.description = document.getElementById('project-description').value || '';
+                    this.currentProject.customDomain = document.getElementById('custom-domain').value || '';
+                    this.currentProject.themeMode = document.getElementById('project-theme-mode').value || 'light';
+                    this.saveProjectToIndexedDB(this.currentProject);
+                    this.showToast('Project settings saved.', 'success');
+                    // Apply theme to preview if open
+                    if (document.getElementById('preview-modal').classList.contains('active')) {
+                        this.refreshPreview();
+                    }
+                }
+            }
+
+            redeploy() {
+                if (this.currentProject) {
+                    this.simulateDeployment();
+                    this.analyticsData.deployments++;
+                    this.currentProject.lastDeployed = new Date().toISOString();
+                    this.showToast('Redeploying...', 'info');
+                    const list = document.getElementById('deployments-list');
+                    if (list) {
+                        const item = document.createElement('div');
+                        item.className = 'deployment-item';
+                        item.innerHTML = `<span>Redeploy - ${new Date().toLocaleString()}</span><div class="status status-building" style="font-size: 0.75rem;">Deploying</div>`;
+                        list.insertBefore(item, list.firstChild);
+                        setTimeout(() => {
+                            const status = item.querySelector('.status');
+                            if (status) {
+                                status.className = 'status status-online';
+                                status.innerHTML = '<div class="icon"></div>Success';
+                            }
+                            this.updateAnalyticsUI();
+                        }, 3000);
+                    }
+                }
+            }
+
+            // ===== MODAL UTILS =====
+            closeModal(modalId) {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.classList.remove('active');
+                    modal.setAttribute('aria-hidden', 'true');
+                }
+                document.body.focus();
+            }
+
+            // ===== TOAST NOTIFICATIONS ===== (unchanged)
+            showToast(message, type = 'info') {
+                const container = document.getElementById('toast-container');
+                if (!container) return;
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.setAttribute('role', 'alert');
+                toast.setAttribute('aria-live', 'assertive');
+
+                const icons = {
+                    success: '✅',
+                    error: '❌',
+                    warning: '⚠️',
+                    info: 'ℹ️'
+                };
+
+                toast.innerHTML = `
+                    <div class="toast-icon" aria-hidden="true">${icons[type] || 'ℹ️'}</div>
+                    <span>${message}</span>
+                    <button class="btn-icon" onclick="this.parentElement.remove()" aria-label="Dismiss notification">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                `;
+
+                container.appendChild(toast);
+                setTimeout(() => toast.classList.add('show'), 100);
+
+                setTimeout(() => {
+                    if (toast.parentNode) toast.remove();
+                }, 5000);
+            }
+
+            // ===== INDEXEDDB IMPLEMENTATION ===== (unchanged)
+            async initializeIndexedDB() {
+                if (!('indexedDB' in window)) {
+                    throw new Error('IndexedDB not supported');
+                }
+                return new Promise((resolve, reject) => {
+                    const request = indexedDB.open('WebCreatorDB', 4); // Incremented version for themeMode
+                    request.onerror = () => reject(request.error);
+                    request.onsuccess = () => {
+                        this.db = request.result;
+                        resolve(this.db);
+                    };
+                    request.onupgradeneeded = (e) => {
+                        const db = e.target.result;
+                        if (!db.objectStoreNames.contains('projects')) {
+                            const projectsStore = db.createObjectStore('projects', { keyPath: 'id' });
+                            projectsStore.createIndex('name', 'name', { unique: false });
+                        }
+                        if (db.objectStoreNames.contains('files')) {
+                            db.deleteObjectStore('files');
+                        }
+                        const filesStore = db.createObjectStore('files', { keyPath: 'id', autoIncrement: true });
+                        filesStore.createIndex('projectId', 'projectId');
+                        filesStore.createIndex('filename', 'filename');
+                    };
+                });
+            }
+
+            async saveProjectToIndexedDB(project, filesMap = null) {
+                if (!this.db) await this.initializeIndexedDB();
+                const tx = this.db.transaction(['projects', 'files'], 'readwrite');
+                const projectStore = tx.objectStore('projects');
+                const projectToSave = { ...project };
+                delete projectToSave.files;
+                const projectReq = projectStore.put(projectToSave);
+                if (filesMap && filesMap.size > 0) {
+                    const filesStore = tx.objectStore('files');
+                    const clearReq = filesStore.index('projectId').getAllKeys(project.id);
+                    clearReq.onsuccess = () => {
+                        clearReq.result.forEach(key => filesStore.delete(key));
+                        filesMap.forEach((file, filename) => {
+                            const fileData = {
+                                projectId: project.id,
+                                filename,
+                                type: file.type,
+                                size: file.size,
+                                blob: file
+                            };
+                            filesStore.add(fileData);
+                        });
+                    };
+                }
+                return new Promise((resolve, reject) => {
+                    tx.oncomplete = () => resolve();
+                    tx.onerror = () => reject(tx.error);
+                });
+            }
+
+            async loadProjectFromIndexedDB(projectId) {
+                if (!this.db) await this.initializeIndexedDB();
+                const tx = this.db.transaction(['projects', 'files'], 'readonly');
+                const projectStore = tx.objectStore('projects');
+                const projectReq = projectStore.get(projectId);
+                return new Promise((resolve, reject) => {
+                    projectReq.onsuccess = () => {
+                        const project = projectReq.result;
+                        if (!project) {
+                            reject(new Error('Project not found'));
+                            return;
+                        }
+                        const filesStore = tx.objectStore('files');
+                        const fileReq = filesStore.index('projectId').getAll(projectId);
+                        fileReq.onsuccess = () => {
+                            const loadedFiles = new Map();
+                            fileReq.result.forEach(fData => {
+                                const file = new File([fData.blob], fData.filename, { type: fData.type });
+                                loadedFiles.set(fData.filename, file);
+                            });
+                            resolve({ project, files: loadedFiles });
+                        };
+                        fileReq.onerror = () => reject(fileReq.error);
+                    };
+                    projectReq.onerror = () => reject(projectReq.error);
+                });
+            }
+
+            async deleteProjectFromIndexedDB(projectId) {
+                if (!this.db) await this.initializeIndexedDB();
+                const tx = this.db.transaction(['projects', 'files'], 'readwrite');
+                const projectStore = tx.objectStore('projects');
+                projectStore.delete(projectId);
+                const filesStore = tx.objectStore('files');
+                const keysReq = filesStore.index('projectId').getAllKeys(projectId);
+                keysReq.onsuccess = () => {
+                    keysReq.result.forEach(key => filesStore.delete(key));
+                };
+                return new Promise((resolve, reject) => {
+                    tx.oncomplete = resolve;
+                    tx.onerror = reject;
+                });
+            }
+
+            async loadSavedProjects() {
+                if (!this.db) await this.initializeIndexedDB();
+                return new Promise((resolve, reject) => {
+                    const tx = this.db.transaction('projects', 'readonly');
+                    const store = tx.objectStore('projects');
+                    const request = store.getAll();
+                    request.onsuccess = () => {
+                        this.projects = request.result || [];
+                        this.loadSavedProjectsUI();
+                        resolve(this.projects);
+                    };
+                    request.onerror = () => reject(request.error);
+                });
+            }
+
+            loadSavedProjectsUI() {
+                const projectsList = document.getElementById('projects-list');
+                if (!projectsList) return;
+                projectsList.innerHTML = '';
+                this.projects.forEach(project => {
+                    const item = document.createElement('div');
+                    item.className = 'project-item';
+                    item.innerHTML = `
+                        <div>
+                            <h4>${this.escapeHtml(project.name)}</h4>
+                            <p>${project.subdomain}</p>
+                            <small>Theme: ${project.themeMode || 'Light'}</small>
+                        </div>
+                        <div class="project-actions">
+                            <button class="btn btn-secondary btn-sm" onclick="webCreator.loadProject('${project.id}')">Load</button>
+                            <button class="btn btn-icon" onclick="webCreator.deleteProjectFromList('${project.id}')" aria-label="Delete">🗑️</button>
+                        </div>
+                    `;
+                    projectsList.appendChild(item);
+                });
+            }
+
+            async loadProject(projectId) {
+                try {
+                    const loaded = await this.loadProjectFromIndexedDB(projectId);
+                    this.currentProject = loaded.project;
+                    this.files = loaded.files;
+                    const userNameEl = document.getElementById('user-name');
+                    const appNameEl = document.getElementById('app-name');
+                    if (userNameEl) userNameEl.value = this.currentProject.owner;
+                    if (appNameEl) appNameEl.value = this.currentProject.name.replace(`.${this.baseDomain}`, '');
+                    this.subdomain = this.currentProject.subdomain;
+                    this.updateSubdomainPreview();
+                    this.updateFileList();
+                    this.updateDashboardFileList();
+                    this.toggleActionButtons();
+                    const descEl = document.getElementById('project-description');
+                    const domainEl = document.getElementById('custom-domain');
+                    const themeEl = document.getElementById('project-theme-mode');
+                    if (descEl) descEl.value = this.currentProject.description || '';
+                    if (domainEl) domainEl.value = this.currentProject.customDomain || '';
+                    if (themeEl) themeEl.value = this.currentProject.themeMode || 'light';
+                    const dashboardSection = document.getElementById('dashboard-section');
+                    if (dashboardSection) dashboardSection.style.display = 'block';
+                    this.showSection('dashboard');
+                    this.showToast(`Loaded project: ${this.currentProject.name}`, 'success');
+                } catch (error) {
+                    this.handleErrors(error, 'loading project');
+                }
+            }
+
+            async deleteProjectFromList(projectId) {
+                if (confirm('Delete this project?')) {
+                    try {
+                        await this.deleteProjectFromIndexedDB(projectId);
+                        this.projects = this.projects.filter(p => p.id !== projectId);
+                        this.loadSavedProjectsUI();
+                        this.showToast('Project removed from list.', 'info');
+                    } catch (error) {
+                        this.handleErrors(error, 'deleting project from list');
+                    }
+                }
+            }
+
+            // ===== ADVANCED STORAGE =====
+            async initializeAdvancedStorage() {
+                await this.initializeIndexedDB();
+                if (!localStorage.getItem('theme')) {
+                    localStorage.setItem('theme', 'light');
+                }
+                const autoSave = localStorage.getItem('auto-save') === 'true';
+                if (autoSave) {
+                    this.startAutoSave();
+                }
+            }
+
+            // ===== OFFLINE & SERVICE WORKER ===== (unchanged)
+            async initializeAdvancedServiceWorker() {
+                if ('serviceWorker' in navigator) {
+                    try {
+                        const swCode = `
+                            self.addEventListener('install', e => {
+                                self.skipWaiting();
+                            });
+                            self.addEventListener('activate', e => {
+                                self.clients.claim();
+                            });
+                            self.addEventListener('fetch', e => {
+                                e.respondWith(
+                                    caches.match(e.request).then(response => response || fetch(e.request))
+                                );
+                            });
+                        `;
+                        const blob = new Blob([swCode], { type: 'application/javascript' });
+                        const swUrl = URL.createObjectURL(blob);
+                        const registration = await navigator.serviceWorker.register(swUrl);
+                        this.syncRegistration = registration;
+                    } catch (error) {
+                        console.warn('Service Worker registration failed:', error);
+                    }
+                }
+            }
+
+            async implementAdvancedCaching() {
+                if ('caches' in window) {
+                    await caches.open('webcreator-cache').then(cache => {
+                        cache.addAll(['/']);
+                    });
+                }
+            }
+
+            async checkOfflineStatus() {
+                this.offlineMode = !navigator.onLine;
+                document.body.classList.toggle('offline-mode', this.offlineMode);
+                const indicator = document.getElementById('offline-indicator');
+                if (indicator) {
+                    indicator.style.display = this.offlineMode ? 'flex' : 'none';
+                }
+                if (this.offlineMode) {
+                    this.showToast('You are offline. Some features are limited.', 'warning');
+                }
+                this.announce(`Connection status: ${this.offlineMode ? 'Offline' : 'Online'}.`);
+            }
+
+            async initializePerformanceMonitoring() {
+                if ('PerformanceObserver' in window) {
+                    const observer = new PerformanceObserver((list) => {
+                        list.getEntries().forEach((entry) => {
+                            console.log('Performance entry:', entry);
+                        });
+                    });
+                    observer.observe({ entryTypes: ['navigation'] });
+                }
+            }
+
+            async enableAppInstallation() {
+                let deferredPrompt;
+                window.addEventListener('beforeinstallprompt', (e) => {
+                    e.preventDefault();
+                    deferredPrompt = e;
+                    this.showToast('Install WebCreator Pro as an app?', 'info');
+                });
+
+                window.addEventListener('appinstalled', () => {
+                    console.log('PWA installed');
+                });
+            }
+
+            // Placeholder methods
+            generateServiceWorkerScript() {
+                return `
+                    // Service Worker script
+                    self.addEventListener('fetch', event => {
+                        event.respondWith(fetch(event.request));
+                    });
+                `;
+            }
+        }
+
+        // Global instance
+        const webCreator = new WebCreatorPro();
+
+        // Expose methods globally
+        window.webCreator = webCreator;
+
+        // Accessibility Manager
+        class AccessibilityManager {
+            constructor() {
+                this.initialize();
+            }
+
+            initialize() {
+                document.addEventListener('focusin', (e) => {
+                    if (e.target.classList.contains('focus-visible')) {
+                        e.target.classList.add('focus-visible');
+                    }
+                });
+            }
+        }
+        new AccessibilityManager();
+
+        // Override toast for announcements
+        const originalToast = webCreator.showToast;
+        webCreator.showToast = function(message, type) {
+            originalToast.call(this, message, type);
+            setTimeout(() => this.announce(message), 100);
+        };
+
+        console.log('🌟 WebCreator Pro: Advanced Professional Edition Loaded - Full Dashboard, Enhanced Templates, Themes, Analytics, Auto-Save');
+        console.log('🔧 Features: Dark/Light/Auto Theme, Dynamic Analytics, More Templates (Developer, Cards, Blogger), Project Theme Settings, Auto-Save');
+        console.log(`📡 Using dynamic base domain: ${webCreator.baseDomain} for published subdomains`);
+    </script>
+</body>
+</html>
