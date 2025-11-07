@@ -1716,8 +1716,8 @@
                                 </div>
                                 <div class="stat-card">
                                     <h4>Domain</h4>
-                                    <p id="project-domain" style="font-family: monospace; color: var(--primary-600); font-size: 1.125rem; cursor: pointer;" onclick="if (typeof webCreator !== 'undefined' && webCreator.subdomain) window.open('https://' + webCreator.subdomain, '_blank');"></p>
-                                    <small>Click to visit</small>
+                                    <p id="project-domain" style="font-family: monospace; color: var(--primary-600); font-size: 1.125rem; cursor: pointer;" onclick="webCreator.openPublishedPreview()"></p>
+                                    <small>Click to open full-screen preview in new tab</small>
                                 </div>
                                 <div class="stat-card">
                                     <h4>Total Files</h4>
@@ -2037,11 +2037,10 @@ footer { grid-area: footer; text-align: center; border-top: 1px solid #dee2e6; p
                 
                 this.initializeEventListeners();
                 this.initializeDragAndDrop();
-                this.loadSavedProjects().catch(err => this.handleErrors(err, 'loading projects'));
-                this.init();
                 this.updateInitialPreviews();
                 this.initializeTheme();
                 this.initializeAnalytics();
+                this.init();
             }
 
             updateInitialPreviews() {
@@ -2059,6 +2058,7 @@ footer { grid-area: footer; text-align: center; border-top: 1px solid #dee2e6; p
             async init() {
                 try {
                     await this.initializeAdvancedStorage();
+                    await this.loadSavedProjects();
                     await this.initializeAdvancedServiceWorker();
                     await this.implementAdvancedCaching();
                     await this.initializePerformanceMonitoring();
@@ -2666,7 +2666,7 @@ footer { grid-area: footer; text-align: center; border-top: 1px solid #dee2e6; p
                 }
             }
 
-            // ===== PREVIEW & PUBLISH ===== (unchanged)
+            // ===== PREVIEW & PUBLISH ===== (enhanced with subdomain preview)
             showPreview(specificFile = null) {
                 const modal = document.getElementById('preview-modal');
                 if (!modal) return;
@@ -2682,8 +2682,11 @@ footer { grid-area: footer; text-align: center; border-top: 1px solid #dee2e6; p
                             new File(['<h1>No HTML files found. Upload an index.html to get started!</h1>'], 'placeholder.html', { type: 'text/html' });
 
                 const reader = new FileReader();
-                reader.onload = (e) => {
-                    if (frame) frame.srcdoc = e.target.result;
+                reader.onload = async (e) => {
+                    let html = e.target.result;
+                    // Embed assets for modal preview as well (optional, but consistent)
+                    html = await this.replaceAssetUrls(html);
+                    if (frame) frame.srcdoc = html;
                 };
                 reader.readAsText(file);
                 
@@ -2693,6 +2696,85 @@ footer { grid-area: footer; text-align: center; border-top: 1px solid #dee2e6; p
             refreshPreview() {
                 this.showPreview();
                 this.showToast('Preview refreshed.', 'info');
+            }
+
+            async openPublishedPreview() {
+                if (!this.subdomain || this.files.size === 0) {
+                    this.showToast('No project published yet. Publish first!', 'warning');
+                    return;
+                }
+
+                const newWin = window.open('', '_blank', 'fullscreen=yes,scrollbars=yes,resizable=yes');
+                if (!newWin) {
+                    this.showToast('Popup blocked. Please allow popups for full-screen preview.', 'warning');
+                    return;
+                }
+
+                newWin.document.title = `Published Site - ${this.subdomain}`;
+
+                try {
+                    // Find index.html
+                    let targetFile = 'index.html';
+                    const indexFile = this.files.get(targetFile) || Array.from(this.files.values()).find(f => f.name.toLowerCase().endsWith('.html'));
+                    if (!indexFile) {
+                        newWin.document.write('<h1>No HTML files found. Upload an index.html to preview.</h1>');
+                        newWin.document.close();
+                        return;
+                    }
+
+                    const reader = new FileReader();
+                    reader.onload = async (e) => {
+                        let html = e.target.result;
+                        // Replace asset URLs with data URLs to avoid 404s
+                        html = await this.replaceAssetUrls(html);
+                        newWin.document.open();
+                        newWin.document.write(html);
+                        newWin.document.close();
+                        this.showToast(`Opened full-screen preview for ${this.subdomain} in new tab. All assets embedded to prevent errors.`, 'success');
+                        this.announce(`Full-screen subdomain preview opened without loading errors.`);
+                    };
+                    reader.readAsText(indexFile);
+                } catch (error) {
+                    newWin.document.write('<h1>Error loading preview. Please try again.</h1>');
+                    newWin.document.close();
+                    this.handleErrors(error, 'subdomain preview');
+                }
+            }
+
+            async replaceAssetUrls(html) {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+
+                // Select elements with src or href attributes for assets
+                const elements = doc.querySelectorAll('link[href], script[src], img[src], source[src], video[src], audio[src], embed[src], object[data]');
+
+                const promises = Array.from(elements).map(async (el) => {
+                    const attr = el.tagName.toLowerCase() === 'link' ? 'href' : 
+                                 el.tagName.toLowerCase() === 'object' ? 'data' : 'src';
+                    let url = el.getAttribute(attr);
+                    if (url && !url.startsWith('http') && !url.startsWith('data:') && !url.startsWith('/') && url.trim()) {
+                        // Assume root-relative; extract filename (simple: last part after /)
+                        const filename = url.split('/').pop().trim();
+                        if (filename) {
+                            const file = this.files.get(filename);
+                            if (file) {
+                                const dataUrl = await this.fileToDataUrl(file);
+                                el.setAttribute(attr, dataUrl);
+                            }
+                        }
+                    }
+                });
+
+                await Promise.all(promises);
+                return doc.documentElement.outerHTML;
+            }
+
+            fileToDataUrl(file) {
+                return new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result);
+                    reader.readAsDataURL(file);
+                });
             }
 
             async publishWebsite() {
@@ -2928,7 +3010,7 @@ footer { grid-area: footer; text-align: center; border-top: 1px solid #dee2e6; p
                     throw new Error('IndexedDB not supported');
                 }
                 return new Promise((resolve, reject) => {
-                    const request = indexedDB.open('WebCreatorDB', 4); // Incremented version for themeMode
+                    const request = indexedDB.open('WebCreatorDB', 5); // Bumped version to 5 for safety
                     request.onerror = () => reject(request.error);
                     request.onsuccess = () => {
                         this.db = request.result;
@@ -3230,6 +3312,7 @@ footer { grid-area: footer; text-align: center; border-top: 1px solid #dee2e6; p
         console.log('🌟 WebCreator Pro: Advanced Professional Edition Loaded - Full Dashboard, Enhanced Templates, Themes, Analytics, Auto-Save');
         console.log('🔧 Features: Dark/Light/Auto Theme, Dynamic Analytics, More Templates (Developer, Cards, Blogger), Project Theme Settings, Auto-Save');
         console.log(`📡 Using dynamic base domain: ${webCreator.baseDomain} for published subdomains`);
+        console.log('🆕 Enhanced: Full-screen subdomain preview in new tab with embedded assets (no 404 errors)');
     </script>
 </body>
 </html>
